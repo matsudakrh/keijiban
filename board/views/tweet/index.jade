@@ -1,0 +1,53 @@
+extends ../components/_layout
+
+block title
+	title ホーム画面
+
+block css
+	link(rel="stylesheet", href="/css/tweet.css")
+
+block main
+	section.form-area
+		.inner
+			form(method="POST", action="/tweet")
+				label(for="name") 名前
+				input#name(type="text", name="userName")
+				textarea#tete(name="tweet", rows="4")
+				input(type="submit", value="送信")
+
+	main
+		section.tweet
+			.inner
+				section.post-area
+					ul.post-list
+						mixin tweet (name)
+							li.post-item
+								p.post
+									span.post-user: a(href="#") #{name}
+									| 自分のツイートをRT出来るようになった件。引用RTはこれまでも手動で自ツイートのURLを貼り付ければできたんですが、通常のRTは行う方法がなかったはずなので便利に。
+									| って、自分のツイートの通常のRTってどういうときに使うべきかわかりませんが……
+									| htp://google.com
+								p.time-stamp 4分前
+						//+tweet('ジョジョの奇妙な冒険')
+						//+tweet('')
+						//+tweet('それでも街は回っている')
+						- var range = tweets.length
+						- for ( var i = 0; i < range; i++ ) {
+							li.post-item
+								p.post
+									span.post-user: a(href="#") #{tweets[i].name}
+									| #{tweets[i].tweet}
+								p.time-stamp #{tweets[i].timestamp}
+						- }
+						if postsLength
+							p テスト
+
+						ol.pagination
+							- for ( var i = 0; i < postsLength / 10; i++ ) {
+								if i > 0
+									li.page: a.page-link(href="/tweet/page/#{i + 1}/") !{i + 1}
+								else
+									li.page: a.page-link(href="/tweet/") !{i + 1}
+							- }
+
+				include _aside

@@ -1,3 +1,14 @@
-header
-	.header-inner
-		h1 twitter
+header.c-header
+	.c-header-inner
+		h1.c-header-title: a(href="/")
+			img(src="/images/logo_twitter.png")
+		//-img(src="/images/WS000001.jpg")
+		nav.c-header-nav
+			ul.c-header-nav-list
+				mixin header_nav(link, label)
+					li.c-header-nav-item
+						a.c-header-nav-link(href="#{link}") !{label}
+
+				+header_nav('#', 'ホーム')
+				+header_nav('#', '友だち検索')
+				+header_nav('#', 'ログアウト')
