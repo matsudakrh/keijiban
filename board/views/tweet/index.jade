@@ -6,13 +6,16 @@ block title
 block css
 	link(rel="stylesheet", href="/css/tweet.css")
 
+block script
+	script(src="/js/tweet.js")
+
 block main
 	section.form-area
 		.inner
-			form(method="POST", action="/tweet")
+			form#postForm(method="POST", action="/tweet")
 				label(for="name") 名前
 				input#name(type="text", name="userName")
-				textarea#tete(name="tweet", rows="4")
+				textarea#tweet(name="tweet", rows="4")
 				input(type="submit", value="送信")
 
 	main

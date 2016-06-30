@@ -1,8 +1,10 @@
 /*
 !/.gitignore
 !/app.js
+!/gulpfile.js
 !/package.json
-#!/assets_source
+!/assets_source
 !/bin
 !/routes
 !/views
+!/middleware

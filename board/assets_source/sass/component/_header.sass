@@ -1,0 +1,30 @@
+@import layout
+@import class
+
+$blue: #8ec2da
+
+.c-header
+  background: $blue
+
+.c-header-inner
+  +inner()
+  +clearfix()
+
+.c-header-title
+  float: left
+
+.c-header-nav
+  float: right
+
+.c-header-nav-list
+  +clearfix()
+  @extend .no-list
+
+.c-header-nav-item
+  float: left
+
+.c-header-nav-link
+  color: darken($blue, 40%)
+  display: block
+  background: #fff
+  padding: 0.8em

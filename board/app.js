@@ -3,12 +3,14 @@ const path = require('path');
 const favicon = require('serve-favicon');
 const logger = require('morgan');
 const cookieParser = require('cookie-parser');
+const session = require('express-session');
 const bodyParser = require('body-parser');
 
 const routes = require('./routes/index');
 const users = require('./routes/users');
 const login = require('./routes/login');
 const tweet = require('./routes/tweet');
+const auth = require('./middleware/auth.js');
 
 const app = express();
 
@@ -25,13 +27,24 @@ app.use(cookieParser());
 
 
 app.use(express.static(path.join(__dirname, 'assets')));
+
+app.use(session({
+  secret: 'keyboard cat',
+  resave: false,
+  saveUninitialized: false,
+  cookie: {
+    maxAge: 30 * 60 * 1000
+  }
+}));
+
+
 app.use(logger('dev'));
 
 
+// app.use('/login', auth);
 
-app.use('/', routes);
-app.use('/users', users);
-app.use('/login', login);
+app.use('/', auth.sessionCheck, routes);
+app.use('/users', auth.sessionCheck, users);
 app.use('/tweet', tweet);
 
 

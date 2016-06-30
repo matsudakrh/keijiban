@@ -1,17 +1,19 @@
 extends components/_layout
 
 block title
-	title ログイン
+	title ユーザー登録
 
 block css
-	link(rel="stylesheet", href="/css/login.css")
+	link(rel="stylesheet", href="/css/signup.css")
 
 block main
 	main
-		h1 ログイン
+		h1 ユーザー登録
 		form(method="post", action="", enctype="multipart/form-data")
+			label(for="name") ユーザーネーム
+			input#name(type="text", name="name")
 			label(for="mail") email
 			input#mail(type="mail", name="email")
 			label(for="pass") パスワード
 			input#pass(type="password", name="pass")
-			button(type="submit") ログイン
+			button(type="submit") 登録する

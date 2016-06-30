@@ -1,0 +1,17 @@
+
+
+
+=query($device: mobile)
+
+
+  @if $device == mobile
+    @media all and ( max-width: 600px )
+      @content
+
+  @if $device == tablet
+    @media all and ( max-width: 860px )
+      @content
+
+  @if $device == desktop
+    @media all and ( min-width: 861px )
+      @content

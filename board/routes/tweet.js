@@ -16,7 +16,7 @@ router.get('/page/:page', (req, res, next) => {
 
     var page = req.params.page;
 
-    if ( isFinite(page) ) {
+    if ( isFinite(page) && page >= 0) {
         database.getDatabase(req, res, page);
     } else {
         res.redirect( 302, '/tweet/' );

@@ -1,0 +1,39 @@
+@import component/class
+@import component/query
+@import component/layout
+
+
+.form-area
+  .inner
+    +inner()
+
+.tweet
+  .inner
+    +inner()
+
+  .post-list
+    @extend .no-list
+
+    .post-item
+      border-bottom: 1px solid #ccc
+      .post
+        white-space: pre-wrap
+      .post-user
+        margin-right: 1em
+        .user-link
+          color: #48779d
+
+  .pagination
+    @extend .no-list
+    .page
+      display: inline-block
+      font-size: 0
+    .page-link
+      +font_size(16)
+      vertical-align: middle
+      text-align: center
+      display: block
+      box-sizing: border-box
+      background: #efefef
+      padding: 0.6em
+      border: 1px solid #888

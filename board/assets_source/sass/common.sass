@@ -1,0 +1,25 @@
+@import component/header
+@import component/layout
+@import component/query
+
++ini_font_size()
+
+body
+  color: #666
+  background: #fefefe
+
+h1, h2
+  margin: 0
+
+input, textarea
+  appearance: none
+  &:focus
+    appearance: none
+    outline: none
+
+a
+  text-decoration: none
+  color: #222
+
+.main-inner
+  +inner()
