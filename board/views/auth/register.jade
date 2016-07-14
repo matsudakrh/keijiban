@@ -1,0 +1,26 @@
+extends ../components/_layout
+
+block title
+	title 新規登録
+
+block css
+	link(rel="stylesheet", href="/css/register.css")
+
+
+block main
+	main.register
+		.inner
+			.form-container
+				form(method="post", action="", data-type="multipart/form-data")
+					if addedName
+							p 入力された名前は既に使われております。他の名前をお試し下さい。
+					.form-component.mail
+						label.label(for="mail") email
+						input#mail.input(type="email", name="email")
+					.form-component.pass
+						label.label(for="name") ユーザー名
+						input#name.input(type="text", name="name")
+					.form-component.pass
+						label.label(for="pass") パスワード
+						input#pass.input(type="password", name="pass")
+					button(type="submit") 登録する

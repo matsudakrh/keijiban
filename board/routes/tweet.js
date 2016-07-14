@@ -1,3 +1,4 @@
+'use strict';
 const express = require('express');
 const router = express.Router();
 const database = require('../middleware/database');
@@ -7,17 +8,55 @@ const database = require('../middleware/database');
 // cache = validator.escape(id);
 
 router.get('/', (req, res, next) => {
-    database.getDatabase(req, res);
-
+    database.getDatabase(req, res, next, 1, (data, length) => {
+        res.render( 'tweet/index', {
+            tweets: data,
+            postsLength: length,
+            userName: req.session.name || false
+        });
+    });
 });
 
+router.get( '/user/', (req, res, next) => {
+    
+    const page = req.params.page;
+    
+    database.getUserPosts(req, res, next, page, (data, length, page) => {
+        res.render( 'tweet/user', {
+            tweets: data,
+            postsLength: length,
+            userName: req.session.name || false
+        });
+    });
+});
 
-router.get('/page/:page', (req, res, next) => {
+router.get( '/user/page/:page([0-9]+)?', (req, res, next) => {
+    
+    const page = req.params.page;
+    
+    database.getUserPosts(req, res, next, page, (data, length, page) => {
+        res.render( 'tweet/user', {
+            tweets: data,
+            postsLength: length,
+            page: page,
+            userName: req.session.name || false
+        });
+    });
+});
 
-    var page = req.params.page;
+router.get('/page/:page([0-9]+)?', (req, res, next) => {
 
-    if ( isFinite(page) && page >= 0) {
-        database.getDatabase(req, res, page);
+    const page = req.params.page;
+
+    if ( page != 0) {
+        database.getDatabase(req, res, page, (data, length, page) => {
+            res.render( 'tweet/index', {
+                tweets: data,
+                postsLength: length,
+                page: page,
+                userName: req.session.name || false
+            });
+        });
     } else {
         res.redirect( 302, '/tweet/' );
     }
@@ -26,11 +65,14 @@ router.get('/page/:page', (req, res, next) => {
 
 router.post( '/', (req, res, next) => {
 
-    var name = req.body.userName;
-    var tweet =　req.body.tweet;
+    const name = req.session.name;
 
-    console.log(tweet.length);
+    if ( !name ) {
+        res.redirect('/tweet/');
+        return;
+    }
 
+    const tweet =　req.body.tweet;
     database.setDatabase(res, name, tweet);
 
 });

@@ -5,6 +5,7 @@ const logger = require('morgan');
 const cookieParser = require('cookie-parser');
 const session = require('express-session');
 const bodyParser = require('body-parser');
+const compression = require('compression');
 
 const routes = require('./routes/index');
 const users = require('./routes/users');
@@ -20,6 +21,12 @@ app.set('view engine', 'jade');
 
 // uncomment after placing your favicon in /public
 //app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
+
+app.use(compression({
+  threshold: 0,
+  level: 9,
+  memLevel: 9
+}));
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
@@ -41,15 +48,17 @@ app.use(session({
 app.use(logger('dev'));
 
 
-// app.use('/login', auth);
+app.use('/auth', login);
 
+// app.use('/', auth.sessionCheck, routes);
+// app.use('/users', auth.sessionCheck, users);
 app.use('/', auth.sessionCheck, routes);
 app.use('/users', auth.sessionCheck, users);
 app.use('/tweet', tweet);
 
 
 // catch 404 and forward to error handler
-app.use((req, res, next) => {
+app.use( (req, res, next) => {
   const err = new Error('Not Found');
   err.status = 404;
   next(err);

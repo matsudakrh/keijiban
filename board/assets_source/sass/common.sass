@@ -1,4 +1,5 @@
 @import component/header
+@import component/side
 @import component/layout
 @import component/query
 
@@ -11,15 +12,25 @@ body
 h1, h2
   margin: 0
 
-input, textarea
+input, textarea, button
   appearance: none
-  &:focus
+  -webkit-appearance: none
+  -moz-appearance: none
+  border: 1px solid #ccc
+  background: #fff
+  &:focus, &:active
     appearance: none
+    -webkit-appearance: none
+    -moz-appearance: none
     outline: none
+    background: #fff
+
+  &:-webkit-autofill
+    -webkit-box-shadow: 0 0 0 1000px white inset
 
 a
+  $color: darken($main-c, 16%)
   text-decoration: none
-  color: #222
-
-.main-inner
-  +inner()
+  color: $color
+  border-bottom: 1px solid $color
+  padding-bottom: 2px

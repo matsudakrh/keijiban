@@ -1,10 +1,11 @@
+@import color
 @import layout
 @import class
 
-$blue: #8ec2da
+
 
 .c-header
-  background: $blue
+  background: $main-c
 
 .c-header-inner
   +inner()
@@ -12,6 +13,9 @@ $blue: #8ec2da
 
 .c-header-title
   float: left
+  a
+    border: none
+    padding: 0
 
 .c-header-nav
   float: right
@@ -24,7 +28,7 @@ $blue: #8ec2da
   float: left
 
 .c-header-nav-link
-  color: darken($blue, 40%)
+  color: darken($main-c, 40%)
   display: block
   background: #fff
   padding: 0.8em

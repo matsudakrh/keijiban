@@ -1,0 +1,29 @@
+extends ../components/_layout
+
+block title
+	title ログイン
+
+block css
+	link(rel="stylesheet", href="/css/login.css")
+
+block main
+	main.login
+		.inner
+			if isLogin == 'dined'
+				p メールアドレスまたはパスワードが間違っています
+			.form-container
+				h2.form-title ログイン
+				form.login-form(method="POST", action="")
+					.form-component.mail
+						label.label(for="mail") email
+						input#mail.input(type="email", name="email")
+					.form-component.mail
+						label.label(for="name") 名前
+						input#name.input(type="text", name="name")
+					.form-component.pass
+						label.label(for="pass") パスワード
+						input#pass.input(type="password", name="pass")
+					.form-component.submit
+						button.btn-submit(type="submit") ログイン
+				.create-account
+					a(href="/auth/register") 新規登録はこちら

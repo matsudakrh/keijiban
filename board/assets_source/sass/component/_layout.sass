@@ -1,15 +1,15 @@
+@import color
+
 
 =font_size($size)
   font-size: $size + px
   font-size: ($size / 10) * 1rem
-
 
 =ini_font_size()
   html
     font-size: 62.5%
   body
     +font_size(16)
-
 
 =inner()
   width: 1024px
@@ -24,3 +24,9 @@
     clear: both
     width: 0
     height: 0
+
+
+=btn($bg-color)
+  display: inline-block
+  background: $bg-color
+  padding: 0.6em 1em

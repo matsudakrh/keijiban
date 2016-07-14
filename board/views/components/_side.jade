@@ -1,0 +1,6 @@
+aside.sidebar
+	h4 サイドバー
+	- const USER_NAME = userName || 0;
+	if USER_NAME
+		p ようこそ！ #{USER_NAME} さん
+		a(href="/tweet/user/") 自分の投稿を見る
