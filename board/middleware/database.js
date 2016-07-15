@@ -51,6 +51,24 @@ const getDatabase = ( req, res, next, page = 1, callback ) => {
     // });
 };
 
+const removeDatabase = ( req, res, next, id ) => {
+
+    if ( id ) {
+        res.redirect( 302, '/tweet/' );
+    }
+
+    const name = req.session.name;
+    const sqlCtx = 'DELETE FROM posts WHERE ( id = ?)';
+
+    db.serialize( () => {
+        const stmt = db.prepare( sqlCtx );
+        stmt.run( [id] );
+        stmt.finalize();
+        res.redirect( 302, '/tweet/' );
+    });
+
+};
+
 const getUserPosts = (req, res, next, page = 1, callback) => {
 
     const name = req.session.name;
@@ -140,6 +158,7 @@ const addUser = ( req, res, next, callback ) => {
 };
 
 exports.setDatabase = setDatabase;
+exports.removeDatabase = removeDatabase;
 exports.getDatabase = getDatabase;
 exports.getUserPosts = getUserPosts;
 exports.addUser = addUser;
